@@ -67,6 +67,12 @@ for entry in pre:
 # Remove empty Read matchers
 config["hooks"]["PreToolUse"] = [e for e in pre if e.get("hooks")]
 
+# Remove empty top-level keys
+if not config["hooks"]["PreToolUse"]:
+    del config["hooks"]["PreToolUse"]
+if not config.get("hooks"):
+    del config["hooks"]
+
 if changed:
     with open(hooks_path, "w") as f:
         json.dump(config, f, indent=2)
