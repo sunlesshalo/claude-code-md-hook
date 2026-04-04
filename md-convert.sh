@@ -75,6 +75,10 @@ target_file = file_path  # will be overwritten if conversion happens
 converted   = False
 
 if ext in CONVERTIBLE:
+    # Check for disable flag — skip conversion, pass through to native Read()
+    if os.path.isfile('.claude/.noconvert'):
+        sys.exit(0)
+
     cache_file = os.path.join(cache_dir, base_name + '.md')
 
     # Serve from cache if fresh
